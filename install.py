@@ -17,16 +17,13 @@ class ItuclimaInstall(setup.ExtensionInstaller):
 
     def __init__(self):
         files=[('skins/tina',
-            ['skins/niculskin/history.html.tmpl',
-             'skins/niculskin/index.html.tmpl',
-             'skins/niculskin/month.html.tmpl',
-             'skins/niculskin/week.html.tmpl',
-             'skins/niculskin/year.html.tmpl',
-             'skins/niculskin/skin.conf',
-             'skins/niculskin/favicon.ico']),
-           ('skins/niculskin/NOAA',
-            ['skins/niculskin/NOAA/NOAA-YYYY.txt.tmpl',
-             'skins/niculskin/NOAA/NOAA-YYYY-MM.txt.tmpl']),
+            ['skins/tina/datos.xml.tmpl',
+             'skins/tina/index.html.tmpl',
+             'skins/tina/skin.conf',
+             'skins/tina/favicon.ico']),
+           ('skins/tina/NOAA',
+            ['skins/tina/NOAA/NOAA-YYYY.txt.tmpl',
+             'skins/tina/NOAA/NOAA-YYYY-MM.txt.tmpl']),
            ('bin/user',
             ['bin/user/historygenerator.py',
              'bin/user/translategenerator.py']),
@@ -53,16 +50,16 @@ class ItuclimaInstall(setup.ExtensionInstaller):
             ]
 
         super(ItuclimaInstall, self).__init__(
-            version="1.0",
-            name='niculskin',
-            description='A skin in responsive design using bootstrap and offering history tables',
-            author="Nico Gulden",
-            author_email="ngulden@gmx.de",
+            version="0.1",
+            name='tina',
+            description='Skin experimental using weewx',
+            author="Daniel Jerez",
+            author_email="dojerez@gmail.com",
             files=files)
 
         print ""
         print "The following alternative languages are available:"
-        self.language = None
+        self.language = Espanol
 
         for f in files:
             if f[0] == 'skins/languages':
@@ -71,7 +68,7 @@ class ItuclimaInstall(setup.ExtensionInstaller):
                     print "   %s" % l[:-1]
 
         print ""
-        print "Language changes can be made in skins/niculskin/skin.conf"
+        print "Language changes can be made in skins/tina/skin.conf"
 
         print ""
         print "Default location for HTML and image files is public_html/"
