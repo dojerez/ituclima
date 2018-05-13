@@ -1,0 +1,304 @@
+#encoding UTF-8
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta http-equiv="refresh" content="300">
+  <title>Ituclima, Ituzaingo BA, Argentina</title>
+  <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:300,400|Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel='stylesheet' type='text/css' href='../forecast/forecast_table.css' />
+
+</head>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-87430419-1', 'auto');
+  ga('send', 'pageview');
+
+  </script>
+  
+<body>
+
+<div id="faux-body">
+
+  #if $varExists('forecast')
+  #set $summary = $forecast.weather_summary('WU')
+  #set $itu1 = $summary.obvis
+  #set $itu2 = $summary.precip
+  #set $itu3 = $summary.clouds
+  #end if
+
+  <div class="container">
+    <div class="card1">
+      <div class="card1__upper">
+        <div class="location">
+          <div class="location__date">$current.dateTime.format("%d-%b-%Y")</div>
+          <div class="location__city">$current.dateTime.format("%H:%M")</div>
+          <div class="location__body"><center><img src = "img/ituclima_logo_blanco.png" style='width:40%;' border="0" alt="Null"></center></div>
+        </div>
+        <div class="background">
+          <div class="background__item"></div>
+        </div>
+      </div>
+      <div class="card1__lower">
+        <div class="weather">
+          <div class="weather__temperature">Ahora:</div>
+          <div class="weather__description">$forecast.label('Weather', $summary.clouds)</div><i class="weather__icon material-icons">home</i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <div class="card__upper">
+        <div class="location">
+          <div class="location__date">Temperatura</div>
+		      <div class="location__city">ST: $current.heatindex</div>
+          <div class="location__time">$current.outTemp.formatted</div>
+        </div>
+        <div class="background">
+          <div class="background__item"></div>
+        </div>
+      </div>
+      <div class="card__lower">
+        <div class="weather">
+          <div class="weather__temperature">$current.dewpoint</div>
+          <div class="weather__description">Punto de rocío</div><i class="weather__icon material-icons">cloud</i>
+        </div>
+      </div>
+    </div>
+	 <div class="card">
+      <div class="card__upper">
+        <div class="location">
+          <div class="location__date">Presión</div>
+		  <div class="location__city">en Hpa</div>
+          <div class="location__time">$current.barometer.formatted</div>
+        </div>
+        <div class="background">
+          <div class="background__item"></div>
+        </div>
+      </div>
+      <div class="card__lower">
+        <div class="weather">
+          <div class="weather__temperature">$trend.barometer.formatted</div>
+          <div class="weather__description">Tendencia(3 horas)</div><i class="weather__icon material-icons">details</i>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="container">
+    <div class="card">
+      <div class="card__upper">
+        <div class="location">
+          <div class="location__date">Humedad</div>
+		  <div class="location__city">en %</div>
+          <div class="location__time">$current.outHumidity.formatted</div>
+        </div>
+        <div class="background">
+          <div class="background__item"></div>
+        </div>
+      </div>
+      <div class="card__lower">
+        <div class="weather">
+          <div class="weather__temperature">$day.outHumidity.max</div>
+          <div class="weather__description">Registrado a las $day.outHumidity.maxtime.format("%H:%M")</div><i class="weather__icon material-icons">blur_on</i>
+        </div>
+      </div>
+    </div>
+	<div class="card">
+      <div class="card__upper">
+        <div class="location">
+          <div class="location__date">Lluvia Acumulada</div>
+		  <div class="location__city">en mm</div>
+          <div class="location__time">$day.rain.sum.formatted</div>
+        </div>
+        <div class="background">
+          <div class="background__item"></div>
+        </div>
+      </div>
+      <div class="card__lower">
+        <div class="weather">
+          <div class="weather__temperature">$current.rainRate.formatted</div>
+          <div class="weather__description">Última hora</div><i class="weather__icon material-icons">grain</i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card">
+      <div class="card__upper">
+        <div class="location">
+          <div class="location__date">Viento</div>
+		  <div class="location__city">en Km/h</div>
+          <div class="location__time">$current.windSpeed.formatted</div>
+        </div>
+        <div class="background">
+          <div class="background__item"></div>
+        </div>
+      </div>
+      <div class="card__lower">
+        <div class="weather">
+          <div class="weather__temperature">$current.windDir</div>
+          <div class="weather__description">$current.windDir.ordinal_compass</div><i class="weather__icon material-icons">toys</i>
+        </div>
+      </div>
+    </div>
+	<div class="card">
+      <div class="card__upper">
+        <div class="location">
+          <div class="location__date">Ráfaga</div>
+		  <div class="location__city">en Km/h</div>
+          <div class="location__time">$day.wind.avg.formatted</div>
+        </div>
+        <div class="background">
+          <div class="background__item"></div>
+        </div>
+      </div>
+      <div class="card__lower">
+        <div class="weather">
+          <div class="weather__temperature">$day.wind.rms</div>
+          <div class="weather__description">RMS</div><i class="weather__icon material-icons">flag</i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+      <div class="card">
+        <div class="card__upper">
+          <div class="location">
+            <div class="location__date">Próximas horas</div>
+            <div class="location__city">6hs</div>
+              <div class="location__forecast">
+                <h2>
+                #if $varExists('forecast')
+                #set $sources = {'WU': 'Weather Underground'}
+                #for $source in $sources
+                <p>
+		  #set $periods = $forecast.weather_periods($source, max_events=6)
+                  #if len($periods) > 0
+                    #set $wts = ''
+                    #set $wloc = ''
+                    #for $period in $periods
+                      #set $wts = $period.issued_ts
+                      #set $wloc = $period.location
+                      $period.hour:00  $period.temp  $forecast.label('Weather', $period.clouds)<br/>
+		      </br>
+                    #end for
+                <br/>
+                  #else
+                <p>No data for $source</p>
+                  #end if
+		</p>
+                #end for
+
+                #else
+
+                <p>The forecast search list extension is not installed.</p>
+
+                #end if
+                </h2>
+              </div>
+            </div>
+          <div class="background">
+            <div class="background__item"></div>
+          </div>
+        </div>
+        <div class="card__lower">
+          <div class="weather">
+            <div class="weather__temperature"></div>
+            <div class="weather__description">Pronóstico</div><i class="weather__icon material-icons">query_builder</i>
+         </div>
+       </div>
+     </div>
+     <div class="card">
+        <div class="card__upper">
+          <div class="location">
+            <div class="location__date">Próximos días</div>
+            <div class="location__city">3d</div>
+              <div class="location__forecast">
+              <h1>
+	      #include "../forecast/forecast_table.inc"
+              </h1>
+              </div>
+            </div>
+          <div class="background">
+            <div class="background__item"></div>
+          </div>
+        </div>
+        <div class="card__lower">
+          <div class="weather">
+            <div class="weather__temperature"></div>
+            <div class="weather__description">Pronóstico Extendido</div><i class="weather__icon material-icons">thumbs_up_down</i>
+         </div>
+       </div>
+     </div>
+  </div>
+
+
+  <div class="container">
+      <div class="card1">
+        <div class="card1__upper">
+          <div class="location">
+            <div class="location__date">Lo que viene</div>
+            <div class="location__city">12/24hs</div>
+            <div class="location__forecast">
+            #if $varExists('forecast')
+            #set $summary = $forecast.weather_summary('WU')
+            #set $ituWU1 = $summary.obvis
+            #set $ituWU2 = $summary.precip
+            #set $ituWU3 = $summary.clouds
+            #set $ituWU4 = $summary.pop
+            #set $tamano = len($summary.precip)
+            #end if
+            #if $varExists('forecast.zambretti')
+            <h1>$forecast.label('Zambretti', $forecast.zambretti.code)</h1>
+            #end if
+
+            #if $tamano == 1
+            #set $pop1 = $ituWU2[0]
+            <p>Existe un $ituWU4 de probabilidad de $forecast.label('Weather', $pop1) para el día de hoy</p>
+            #end if
+
+            #if $tamano == 2
+            #set $pop1 = $ituWU2[0]
+            #set $pop2 = $ituWU2[1]
+            <p>Existe un $ituWU4 de probabilidad de $forecast.label('Weather', $pop1) y $forecast.label('Weather', $pop2) para el día de hoy</p>
+            #end if
+
+            #if $tamano == 3
+            #set $pop1 = $ituWU2[0]
+            #set $pop2 = $ituWU2[1]
+            #set $pop3 = $ituWU2[2]
+            <p>Existe un $ituWU4 de probabilidad de $forecast.label('Weather', $pop1), $forecast.label('Weather', $pop2) y $forecast.label('Weather', $pop3) para el día de hoy</p>
+            #end if             
+            </div>
+          </div>
+          <div class="background">
+            <div class="background__item"></div>
+          </div>
+        </div>
+        <div class="card1__lower">
+          <div class="weather">
+            <div class="weather__temperature"><img src = "img/iso_ituclima.png" style="width:30px;height:30px;"></div>
+            <div class="weather__description"><a href="http://twitter.com/ituclima"><img src = "img/Twitter-icon-black.png" style="width:30px;height:30px;"></a>   <a href="http://windguru.cz/635874"><img src = "img/windguru.png" style="width:30px;height:30px;"></a>   <a href="http://wunderground.com/personal-weather-station/dashboard?ID=IBUENOSA476"><img src = "img/wundergroundLogo.png" style="width:30px;height:30px;"></a></div><i class="weather__icon material-icons">pets</i>
+         </div>
+       </div>
+     </div>
+
+  </div>
+</div>
+
+</body>
+
+</html>
